@@ -1,56 +1,49 @@
-## Unsupervised Learning of Video Representations using LSTMs
+##NB: this is my personal hack, for the official code refer here: https://github.com/emansim/unsupervised-videos
 
-Code for paper [Unsupervised Learning of Video Representations using LSTMs](http://arxiv.org/abs/1502.04681) by Nitish Srivastava, Elman Mansimov, Ruslan Salakhutdinov; ICML 2015.
-
-We use multilayer Long Short Term Memory (LSTM) networks to learn representations of video sequences. The representation can be used to perform different tasks, such as reconstructing the input sequence, predicting the future sequence, or for classification. Examples:
-
-![mnist gif1](http://i.giphy.com/3o6UBnVC6wIj3NdJOE.gif)
-![mnist gif2](http://i.giphy.com/3o6UB3eAZxybAFG0iA.gif)
-![ucf101 gif1](http://i.giphy.com/xT77XRpXgmjMzRzxSg.gif)
-![ucf101 gif2](http://i.giphy.com/xT77Y5wbpQk0ScfXeE.gif)
-
-Note that the code at [this link](http://www.cs.toronto.edu/~nitish/unsupervised_video/) is deprecated.
 
 ### Getting Started
 
-To compile cudamat library you need to modify `CUDA_ROOT` in `cudamat/Makefile` to the relevant cuda root path.
 
-The libraries you need to install are:
+1. Compile cudamat in /cudamat:
+	
+	```
+	make
+	```
+	
+	If error, verify `CUDA_ROOT` in `cudamat/Makefile` to be correct.
 
-* h5py (HDF5 (>= 1.8.11))
-* google.protobuf (Protocol Buffers (>= 2.5.0))
-* numpy
-* matplotlib
+2. Install necessary Python packages:
 
-Next compile .proto file by calling
+	* h5py (HDF5 (>= 1.8.11))
+	* google.protobuf (Protocol Buffers (>= 2.5.0))
+	* numpy
+	* matplotlib
 
-```
-protoc -I=./ --python_out=./ config.proto
-```
+3. Install the Proto compiler:
+	
+	```
+	sudo apt-get install libprotobuf-dev
+	```
+	
+	Next compile .proto file by calling
+	
+	```
+	protoc -I=./ --python_out=./ config.proto
+	```
 
-Depending on the task, you would need to download the following dataset files. These can be obtained by running:
+4. Download the datafiles into /datasets
 
-```
-wget http://www.cs.toronto.edu/~emansim/datasets/mnist.h5
-wget http://www.cs.toronto.edu/~emansim/datasets/bouncing_mnist_test.npy
-wget http://www.cs.toronto.edu/~emansim/datasets/ucf101_sample_train_patches.npy
-wget http://www.cs.toronto.edu/~emansim/datasets/ucf101_sample_valid_patches.npy
-wget http://www.cs.toronto.edu/~emansim/datasets/ucf101_sample_train_features.h5
-wget http://www.cs.toronto.edu/~emansim/datasets/ucf101_sample_train_labels.txt
-wget http://www.cs.toronto.edu/~emansim/datasets/ucf101_sample_train_num_frames.txt
-wget http://www.cs.toronto.edu/~emansim/datasets/ucf101_sample_valid_features.h5
-wget http://www.cs.toronto.edu/~emansim/datasets/ucf101_sample_valid_labels.txt
-wget http://www.cs.toronto.edu/~emansim/datasets/ucf101_sample_valid_num_frames.txt
-```
-
-**Note to Toronto users:** You don't need to download any files, as they are available in my gobi3 repository and are already set up.
+	```
+	wget http://www.cs.toronto.edu/~emansim/datasets/mnist.h5
+	wget http://www.cs.toronto.edu/~emansim/datasets/bouncing_mnist_test.npy
+	```
 
 ### Bouncing (Moving) MNIST dataset
 
 To train a sample model on this dataset you need to set correct `data_file` in `datasets/bouncing_mnist_valid.pbtxt` and then run (you may need to change the board id of gpu): 
 
 ```
-python lstm_combo.py models/lstm_combo_1layer_mnist.pbtxt datasets/bouncing_mnist.pbtxt datasets/bouncing_mnist_valid.pbtxt 1
+python lstm_combo.py models/lstm_combo_1layer_mnist.pbtxt datasets/bouncing_mnist.pbtxt datasets/bouncing_mnist_valid.pbtxt 0
 ```
 
 After training the model and setting correct path to trained weights in `models/lstm_combo_1layer_mnist_pretrained.pbtxt`, you can visualize the sample reconstruction and future prediction results of the pretrained model by running:
@@ -65,36 +58,9 @@ Below are the sample results, where first image is reference image and second im
 ![recon](imgs/mnist_1layer_example_recon.png)
 
 
-### Video patches
-
-Due to the size constraints, I only managed to upload a small sample dataset of UCF-101 patches. The trained model is overfitting, so this example is just meant for instructional purposes. The setup is the same as in Bouncing MNIST dataset.
-
-To train the model run:
-
-```
-python lstm_combo.py models/lstm_combo_1layer_ucf101_patches.pbtxt datasets/ucf101_patches.pbtxt datasets/ucf101_patches_valid.pbtxt 1
-```
-
-To see the results run:
-
-```
-python display_results.py models/lstm_combo_1layer_ucf101_pretrained.pbtxt datasets/ucf101_patches_valid.pbtxt 1
-```
-
-![original](imgs/ucf101_1layer_example_original.png)
-![recon](imgs/ucf101_1layer_example_recon.png)
-
-### Classification using high level representations ('percepts') of video frames
-
-Again, as in the case of UCF-101 patches, I was able to upload a very small subset of fc6 features of video frames extracted using VGG network. To train the classifier run:
-
-```
-python lstm_classifier.py models/lstm_classifier_1layer_ucf101_features.pbtxt datasets/ucf101_features.pbtxt datasets/ucf101_features_valid.pbtxt 1
-```
-
 ### Reference
 
-If you found this code or our paper useful, please consider citing the following paper:
+If you found this code or the paper useful, please consider citing the following paper:
 
 ```
 @inproceedings{srivastava15_unsup_video,

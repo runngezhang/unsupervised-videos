@@ -344,7 +344,7 @@ class BouncingMNISTDataHandler(object):
     self.frame_size_ = self.image_size_ ** 2
 
     try:
-      f = h5py.File('/ais/gobi3/u/nitish/mnist/mnist.h5')
+      f = h5py.File('datasets/mnist.h5')
     except:
       print 'Please set the correct path to MNIST dataset'
       sys.exit()
