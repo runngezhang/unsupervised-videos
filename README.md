@@ -37,6 +37,12 @@
 	wget http://www.cs.toronto.edu/~emansim/datasets/mnist.h5
 	wget http://www.cs.toronto.edu/~emansim/datasets/bouncing_mnist_test.npy
 	```
+	
+## Notes for training
+
+`models/lstm_combo_1layer_mnist.pbtxt` contains the hyperparameters for length of training sequence.
+
+Change model parameter path in  `models/lstm_combo_1layer_mnist_pretrained.pbtxt` and use instead of `models/lstm_combo_1layer_mnist.pbtxt` to continue training or obtain score on 4 frame prediction with 10 frame prediction trained model.
 
 ### Bouncing (Moving) MNIST dataset
 
