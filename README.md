@@ -11,6 +11,8 @@
 	```
 	
 	If error, verify `CUDA_ROOT` in `cudamat/Makefile` to be correct.
+	
+	Also verify that LD_LIBRARY_PATH is set (`echo $LD_LIBRARY_PATH`. Otherwise `export LD_LIBRARY_PATH=/usr/local/cuda/lib64`
 
 2. Install necessary Python packages:
 
