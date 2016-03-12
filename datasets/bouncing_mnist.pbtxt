@@ -1,5 +1,5 @@
 dataset_type: BOUNCING_MNIST
-num_frames: 20
+num_frames: 8
 batch_size: 80
 image_size: 64
 num_digits: 2

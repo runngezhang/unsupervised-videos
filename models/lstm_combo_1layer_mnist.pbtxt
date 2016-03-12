@@ -5,8 +5,8 @@ display_after: 0
 validate_after: 500
 save_after: 500
 max_iters: 10000000
-dec_seq_length: 10
-future_seq_length: 10
+dec_seq_length: 4
+future_seq_length: 4
 dec_conditional: true
 future_conditional: true
 binary_data: true

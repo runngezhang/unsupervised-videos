@@ -5,3 +5,6 @@ cudamat/*.pyc
 playground.py
 *.pdf
 outputs/*
+datasets/bouncing_mnist_test.npy
+datasets/mnist.h5
+experiments/*
